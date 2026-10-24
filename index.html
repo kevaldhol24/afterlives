@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Afterlives Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap">
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  #game { position: fixed; inset: 0; touch-action: none; -webkit-user-select: none; user-select: none; }
+  #game canvas { display: block; }
+  #rotate {
+    display: none; position: fixed; inset: 0; z-index: 5; pointer-events: none;
+    align-items: flex-start; justify-content: center; padding-top: 18vh;
+    font: 18px "IM Fell English SC", Georgia, serif; color: #cfd6d3; letter-spacing: 0.06em;
+  }
+  @media (orientation: portrait) and (max-width: 760px) { #rotate { display: flex; } }
+</style>
+</head>
+<body>
+<div id="game"></div>
+<div id="rotate">Turn your phone sideways</div>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
