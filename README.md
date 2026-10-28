@@ -29,3 +29,13 @@ npm run build:single   # dist-single/index.html — one self-contained file for 
 - `src/constants.js` — feel tuning (run speed, jump, ghost cap, door grace)
 
 All gameplay runs on fixed 60 Hz physics steps so ghost replays line up exactly.
+
+## Tether (ocean prototype, `#tether`)
+
+A salvage diver on an air hose from a boat. Swim right and down, grab salvage, get back to the boat to sell it.
+The hose pays out as you go, wraps round rocks and wreck timbers, and **kinks** if you pull it tight round something
+thin (no air, the emergency tank drains). Hold reel and the crew winches you home along the hose's path.
+
+- Keyboard: Arrows / WASD swim, hold Space to reel. Touch: stick on the left, reel button bottom right.
+- Boat screen: buy hose length, emergency tank, winch. Progress is saved in the browser.
+- Code: `src/tether/` (`sim.js` and `world.js` have no Phaser), tests: `npm test`.

@@ -99,15 +99,16 @@ export class ToyMenu extends Phaser.Scene {
 
     const items = [...TOYS.map((toy, i) => ({ label: `${i + 1}.  ${new toy.Room().name}`, blurb: toy.blurb, go: () => this.scene.start('toy', { toy: i }) })),
       { label: '4.  Old prototype', blurb: 'Corpses and ghosts, as it was.', go: () => this.scene.start('game', { level: 0 }) },
-      { label: '5.  Forest', blurb: 'Chapter 1 in the painted forest: push, pull, swing, and the hound.', go: () => { location.hash = 'forest'; location.reload(); } }];
+      { label: '5.  Forest', blurb: 'Chapter 1 in the painted forest: push, pull, swing, and the hound.', go: () => { location.hash = 'forest'; location.reload(); } },
+      { label: '6.  Tether', blurb: 'A salvage diver on an air hose. Different game: the ocean prototype.', go: () => { location.hash = 'tether'; location.reload(); } }];
     items.forEach((it, i) => {
-      const y = 160 + i * 68;
+      const y = 148 + i * 56;
       const label = t(W / 2, y, it.label, '28px', COLORS.text).setInteractive({ useHandCursor: true });
       t(W / 2, y + 36, it.blurb, '16px', COLORS.textDim);
       label.on('pointerover', () => label.setColor('#9fe0ff'));
       label.on('pointerout', () => label.setColor(COLORS.text));
       label.on('pointerdown', it.go);
-      this.input.keyboard.once(`keydown-${['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE'][i]}`, it.go);
+      this.input.keyboard.once(`keydown-${['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX'][i]}`, it.go);
     });
     t(W / 2, H - 40, 'Keyboard only for now: arrows / WASD, Space, E, F', '15px', COLORS.textDim);
   }

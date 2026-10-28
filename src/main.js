@@ -4,6 +4,7 @@ import { EndScene } from './EndScene.js';
 import { ToyScene, ToyMenu, TOYS } from './toys/ToyScene.js';
 import { ForestScene, FOREST_SIZE } from './forest/ForestScene.js';
 import { W, H } from './constants.js';
+import { TetherScene, TETHER_SIZE } from './tether/TetherScene.js';
 
 async function boot() {
   // Wait briefly for the display font; fall back to Georgia if it is slow.
@@ -28,6 +29,21 @@ async function boot() {
       input: { activePointers: 4 },
       render: { antialias: true },
       scene: [ForestScene],
+    });
+    return;
+  }
+  // #tether: the diving prototype, its own game at 1280x720
+  if (hash === 'tether') {
+    window.__afterlives = new Phaser.Game({
+      type: Phaser.WEBGL,
+      parent: 'game',
+      width: TETHER_SIZE.width,
+      height: TETHER_SIZE.height,
+      backgroundColor: '#000000',
+      scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
+      input: { activePointers: 4 },
+      render: { antialias: true },
+      scene: [TetherScene],
     });
     return;
   }

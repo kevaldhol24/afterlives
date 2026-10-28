@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "build:single": "vite build --mode single"
+    "build:single": "vite build --mode single",
+    "test": "node tests/tether.test.mjs"
   },
   "dependencies": {
     "phaser": "^3.90.0"

@@ -56,6 +56,25 @@ Prototype of a Limbo-style silhouette puzzle platformer. Owner: Keval (playtests
     GPU), so don't wait on wall time: step `scene.update(0, 16.7)` in a loop with `scene.read` replaced by scripted
     input, then let one frame render for the screenshot. `scene.zoomOn = 3` zooms the camera on the boy (tests only).
 
+- **Tether** (`src/tether/`, `#tether`, menu item 6): a *different game* prototyped in this repo: a 1920s salvage
+  diver on an air hose (Limbo-style ocean, side view). Its own Phaser game at 1280x720. The site (Wreck Graveyard,
+  `world.js`) slopes down to the right from the boat: reef, cliff, a wreck, a trench; deeper = darker, the helmet
+  lamp is cut out of a darkness render texture. The question the MVP answers: **is managing the hose fun or annoying?**
+  - Hose (`sim.js`, no Phaser): verlet rope, 14 px links, anchored at the boat. The crew pays out when the hose pulls
+    at the boat (`pull`, smoothed) and takes up slack after 1.5 s of none. Rigid (inextensible from the boat) only
+    when fully paid out or on the winch; the rigid pass may move the diver at most `MAX_YANK` px/step, or he gets
+    pulled through thin timbers. **Kink**: hose folded > ~125° at a contact point while taut (`KINK_ON`) -> no air,
+    the emergency tank drains, and the winch stalls. Thin things (< 24 px: spires, the arch, deck edges, masts,
+    yards) kink; round rocks don't. Reeling drags him home along the hose's own path.
+  - Air from the hose; the tank (12 s base) only drains when kinked or leaking (eel bites, -30 % flow each, max 3).
+    Run out = black out, sack lost. Salvage auto-picks up (sack cap 6 weight; crates 3, idol 2 slow you down) and
+    only counts once back at the boat. Boat screen: bank, 3 upgrades (hose length, tank, winch), saved in
+    localStorage `tether.save.v1`. The logbook page in the trench is the story hook.
+  - Controls: arrows / WASD swim, hold Space / Shift / R to reel; touch: stick anywhere on the left 60 %, reel button
+    bottom right. Tests: `node tests/tether.test.mjs` (payout, max length, reel home, kink under the reef arch,
+    winch stall, eel bite, drowning, reachability per hose level). In the browser: `window.__tether` is the scene;
+    replace `scene.read` and step `scene.update(0, 16.7)` like the forest.
+
 ## Decisions so far
 - **Engine: Phaser 3 + Vite** (chosen over Three.js, Godot, Unity). 2D engine with physics, small web bundle for portals, and it keeps the workflow of Claude building and testing in a headless browser.
 - **Targets:** web portals first (CrazyGames/Poki), Play Store later via a Capacitor wrapper. Keyboard play is natural on web; touch controls exist for phones.
@@ -77,5 +96,5 @@ Prototype of a Limbo-style silhouette puzzle platformer. Owner: Keval (playtests
 - Headless Chromium runs the game in slow motion; write tests that wait on physics step counts, not wall-clock time.
 
 ## Commands
-- `npm install`, `npm run dev`, `npm run build` (dist/), `npm run build:single` (one-file HTML)
-- URL `#l1`..`#l4` starts at a room; `N` skips a room.
+- `npm install`, `npm run dev`, `npm run build` (dist/), `npm run build:single` (one-file HTML), `npm test` (Tether sim)
+- URL `#l1`..`#l4` starts at a room; `N` skips a room. `#forest`, `#tether` open those games.
